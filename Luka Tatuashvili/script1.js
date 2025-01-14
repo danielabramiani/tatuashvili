@@ -1,6 +1,17 @@
 const slides = document.querySelector('.slides');
 const slideCount = document.querySelectorAll('.slide').length;
-const dotsContainer = document.querySelector('.dots');
+const totalSlides = $('.slide').length;
+function updateDots() {
+    $('.dot').removeClass('active');
+    $('.dot').eq(currentIndex).addClass('active');
+}
+
+$('.dot').click(function() {
+    currentIndex = $(this).index();
+    updateDots();
+});
+
+
 let currentIndex = 0;
 function createDots(){
     for(let i = 0; i < slideCount; i++){
@@ -18,11 +29,7 @@ function updateSlidedPosition() {
     updateDots();
 
 }
-function updateDots(){
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[currentIndex].classList.add('active');
-}
+
 document.getElementById('prev').addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + slideCount) % slideCount;
     updateSlidedPosition();
@@ -40,5 +47,5 @@ function autoPlay() {
     }, 3000);
 }
 
-createDots();
 autoPlay();
+updateDots();
